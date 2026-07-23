@@ -1,0 +1,29 @@
+/*
+Problem: Number of Unique XOR Triplets I
+Difficulty: Medium
+Topic: Bit Manipulation, Math
+
+Approach:
+- The array is nums = [1, 2, ..., n].
+- If n < 3:
+    - There are fewer than three elements, so every possible XOR result
+      is simply one of the existing numbers.
+- Otherwise:
+    - Let k be the number of bits required to represent n.
+    - Every XOR value from 0 to (2^k - 1) can be formed by some triplet.
+    - Hence, the answer is exactly 2^k.
+
+Time Complexity: O(1)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+    int uniqueXorTriplets(int n) {
+        if (n < 3)
+            return n;
+
+        int bits = 32 - __builtin_clz(n);
+        return 1 << bits;
+    }
+};
