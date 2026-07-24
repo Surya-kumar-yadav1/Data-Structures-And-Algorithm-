@@ -1,0 +1,45 @@
+/*
+Problem: 3514. Number of Unique XOR Triplets II
+Difficulty: Medium
+Topic: Bit Manipulation, Hash Table
+
+Approach:
+- Observe that any XOR triplet can be written as:
+      nums[i] XOR nums[j] XOR nums[k]
+  where i <= j <= k.
+- First, compute all possible XOR values of pairs (nums[i], nums[j])
+  with i <= j and store the unique results in a hash set.
+- Then, XOR every array element with each unique pair XOR value to
+  generate every possible triplet XOR value.
+- Store the triplet XOR values in another hash set to remove duplicates.
+- The size of the final hash set is the answer.
+
+Time Complexity: O(n²)
+Space Complexity: O(n²)
+*/
+
+class Solution {
+public:
+    int uniqueXorTriplets(vector<int>& nums) {
+        unordered_set<int> pairXor;
+        unordered_set<int> tripletXor;
+
+        int n = nums.size();
+
+        // Store all unique XOR values of pairs
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                pairXor.insert(nums[i] ^ nums[j]);
+            }
+        }
+
+        // Generate all unique XOR triplet values
+        for (int x : nums) {
+            for (int val : pairXor) {
+                tripletXor.insert(x ^ val);
+            }
+        }
+
+        return tripletXor.size();
+    }
+};
