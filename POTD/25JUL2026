@@ -1,0 +1,40 @@
+/*
+Problem: 3536. Maximum Product of Two Digits
+Difficulty: Easy
+Topic: Math
+
+Approach:
+- Traverse each digit of the number from right to left.
+- Keep track of the largest and second-largest digits encountered.
+- If the current digit is greater than the largest digit, update both
+  the largest and second-largest values.
+- Otherwise, update the second-largest digit if needed.
+- The maximum product is obtained by multiplying the two largest digits.
+
+Time Complexity: O(d)
+Space Complexity: O(1)
+
+where d is the number of digits in n.
+*/
+
+class Solution {
+public:
+    int maxProduct(int n) {
+        int firstMax = -1, secondMax = -1;
+
+        while (n > 0) {
+            int digit = n % 10;
+
+            if (digit > firstMax) {
+                secondMax = firstMax;
+                firstMax = digit;
+            } else if (digit > secondMax) {
+                secondMax = digit;
+            }
+
+            n /= 10;
+        }
+
+        return firstMax * secondMax;
+    }
+};
