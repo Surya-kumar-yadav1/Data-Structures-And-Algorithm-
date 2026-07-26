@@ -1,0 +1,30 @@
+/*
+Problem: 628. Maximum Product of Three Numbers
+Difficulty: Easy
+Topic: Array, Sorting
+
+Approach:
+- Sort the array in non-decreasing order.
+- The maximum product can come from one of two cases:
+    1. The product of the three largest numbers.
+    2. The product of the two smallest numbers (possibly negative)
+       and the largest number.
+- Return the maximum of these two values.
+
+Time Complexity: O(n log n)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        int n = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        return max(
+            nums[n - 1] * nums[n - 2] * nums[n - 3],
+            nums[0] * nums[1] * nums[n - 1]
+        );
+    }
+};
