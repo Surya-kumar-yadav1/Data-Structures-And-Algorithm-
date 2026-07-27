@@ -1,0 +1,35 @@
+/*
+Problem: 1464. Maximum Product of Two Elements in an Array
+Difficulty: Easy
+Topic: Array
+
+Approach:
+- Traverse the array once while keeping track of the largest and
+  second-largest elements.
+- If the current element is greater than the largest element, update
+  both the largest and second-largest values.
+- Otherwise, update the second-largest element if needed.
+- The required answer is obtained by computing:
+      (largest - 1) * (secondLargest - 1).
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int firstMax = INT_MIN, secondMax = INT_MIN;
+
+        for (int num : nums) {
+            if (num > firstMax) {
+                secondMax = firstMax;
+                firstMax = num;
+            } else if (num > secondMax) {
+                secondMax = num;
+            }
+        }
+
+        return (firstMax - 1) * (secondMax - 1);
+    }
+};
