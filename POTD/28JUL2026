@@ -1,0 +1,31 @@
+/*
+Problem: 3517. Smallest Palindromic Rearrangement I
+Difficulty: Medium
+Topic: String, Greedy, Sorting
+
+Approach:
+- Since the input is already a palindrome, its first half contains exactly half of each character's occurrences.
+- Sort the first half of the string in ascending order to obtain the smallest lexicographical prefix.
+- Sort the second half in descending order so it becomes the mirror image of the sorted first half.
+- Keep the middle character unchanged if the string has an odd length.
+
+Time Complexity: O(n log n)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+    string smallestPalindrome(string s) {
+        int n = s.size();
+
+        sort(s.begin(), s.begin() + (n / 2));
+
+        if (n % 2 == 0) {
+            sort(s.begin() + (n / 2), s.end(), greater<char>());
+        } else {
+            sort(s.begin() + (n / 2) + 1, s.end(), greater<char>());
+        }
+
+        return s;
+    }
+};
