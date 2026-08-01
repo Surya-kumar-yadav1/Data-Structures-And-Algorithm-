@@ -1,7 +1,7 @@
-/*
+/*(POTD)
 Problem: 486. Predict the Winner
 Difficulty: Medium
-Topic: Dynamic Programming, Recursion, Game Theory
+Topic: Dynamic Programming, Recursion, Game Theory 
 
 Approach:
 - Use recursion with memoization to compute the maximum score Player 1 can obtain from each subarray.
