@@ -1,0 +1,55 @@
+/*
+Problem: 486. Predict the Winner
+Difficulty: Medium
+Topic: Dynamic Programming, Recursion, Game Theory
+
+Approach:
+- Use recursion with memoization to compute the maximum score Player 1 can obtain from each subarray.
+- At every turn, the current player can choose either the leftmost or rightmost element.
+- Since both players play optimally, after choosing an element, the opponent will leave the minimum possible future score for the current player.
+- Store the result for each subarray in a DP table to avoid recomputation.
+- After obtaining Player 1's maximum score, compare it with Player 2's score (total sum − Player 1's score).
+
+Time Complexity: O(n²)
+Space Complexity: O(n²)
+*/
+
+class Solution {
+public:
+    int solve(int i, int j, vector<int> &nums, vector<vector<int>> &dp) {
+        int n = nums.size();
+
+        if (i == j)
+            return nums[i];
+
+        if (dp[i][j] != -1)
+            return dp[i][j];
+
+        int takei = nums[i];
+        if (i + 2 < n && j - 1 >= 0)
+            takei += min(solve(i + 2, j, nums, dp),
+                         solve(i + 1, j - 1, nums, dp));
+
+        int takej = nums[j];
+        if (j - 2 >= 0 && i + 1 < n)
+            takej += min(solve(i, j - 2, nums, dp),
+                         solve(i + 1, j - 1, nums, dp));
+
+        return dp[i][j] = max(takei, takej);
+    }
+
+    bool predictTheWinner(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+
+        int p1 = solve(0, n - 1, nums, dp);
+
+        int sum = 0;
+        for (int &x : nums)
+            sum += x;
+
+        int p2 = sum - p1;
+
+        return p1 >= p2;
+    }
+};
