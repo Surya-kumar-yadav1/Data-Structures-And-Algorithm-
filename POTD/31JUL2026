@@ -1,0 +1,36 @@
+/*
+Problem: 3016. Minimum Number of Pushes to Type Word II
+Difficulty: Medium
+Topic: Greedy, Sorting, Hashing
+
+Approach:
+- Count the frequency of each character in the word.
+- Sort the frequencies in descending order.
+- Assign the most frequent characters to positions requiring the fewest key presses.
+- Since there are 8 available keys (2–9), the first 8 characters require 1 push, the next 8 require 2 pushes, and so on.
+- Compute the total number of pushes by multiplying each character's frequency with its assigned push count.
+
+Time Complexity: O(n + 26 log 26)
+Space Complexity: O(26)
+*/
+
+class Solution {
+public:
+    int minimumPushes(string word) {
+        vector<int> charCount(26, 0);
+
+        for (char ch : word) {
+            charCount[ch - 'a']++;
+        }
+
+        sort(charCount.begin(), charCount.end(), greater<int>());
+
+        int minPushCount = 0;
+
+        for (int i = 0; i < 26; i++) {
+            minPushCount += charCount[i] * (i / 8 + 1);
+        }
+
+        return minPushCount;
+    }
+};
