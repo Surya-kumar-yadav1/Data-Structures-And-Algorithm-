@@ -1,0 +1,54 @@
+/*
+Problem: 877. Stone Game
+Difficulty: Medium
+Topic: Dynamic Programming, Recursion, Game Theory
+
+Approach:
+- Use recursion with memoization to compute the maximum stones the current player can collect from each subarray.
+- At every turn, the player can pick either the leftmost or rightmost pile.
+- Since both players play optimally, the opponent will choose a move that minimizes the current player's future gain.
+- Store the result for each subarray in a DP table to avoid recomputation.
+- Compare Alice's maximum possible stones with Bob's remaining stones to determine the winner.
+
+Time Complexity: O(n²)
+Space Complexity: O(n²)
+*/
+
+class Solution {
+public:
+    int solve(int i, int j, vector<int>& piles, vector<vector<int>>& dp) {
+        if (i > j)
+            return 0;
+
+        if (dp[i][j] != -1)
+            return dp[i][j];
+
+        int takei = piles[i] + min(solve(i + 2, j, piles, dp),
+                                   solve(i + 1, j - 1, piles, dp));
+
+        int takej = piles[j] + min(solve(i, j - 2, piles, dp),
+                                   solve(i + 1, j - 1, piles, dp));
+
+        return dp[i][j] = max(takei, takej);
+    }
+
+    bool stoneGame(vector<int>& piles) {
+        int n = piles.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i > j)
+                    dp[i][j] = 0;
+                else if (i == j)
+                    dp[i][j] = piles[i];
+            }
+        }
+
+        int sum = accumulate(piles.begin(), piles.end(), 0);
+        int alice = solve(0, n - 1, piles, dp);
+        int bob = sum - alice;
+
+        return alice > bob;
+    }
+};
