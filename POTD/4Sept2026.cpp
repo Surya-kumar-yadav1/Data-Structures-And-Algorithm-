@@ -1,4 +1,6 @@
 /* 
+
+
 Problem: 3903. Smallest Stable Index I 
 Difficulty: Easy 
 Topic: Array, Prefix Maximum, Suffix Minimum 
