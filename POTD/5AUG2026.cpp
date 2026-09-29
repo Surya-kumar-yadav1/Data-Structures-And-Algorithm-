@@ -1,4 +1,4 @@
-```cpp id="t9m4qx"
+
 /*
 Problem: 3310. Remove Methods From Project
 Difficulty: Medium
