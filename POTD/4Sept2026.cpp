@@ -2,8 +2,9 @@
 Problem: 3903. Smallest Stable Index I 
 Difficulty: Easy 
 Topic: Array, Prefix Maximum, Suffix Minimum 
- 
+       
 Approach: 
+
 - For every index i, we need:
     max(nums[0..i]) - min(nums[i..n-1])
 - Precompute the suffix minimum for every index. 
