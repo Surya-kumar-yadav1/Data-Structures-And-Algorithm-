@@ -42,7 +42,7 @@ public:
         for (int x : diff) {
             bucket[x]++;
         }
-
+     
         for (int i = M; i > 0 && k > 0; i--) {
             int take = min((long long)bucket[i], k);
 
