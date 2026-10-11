@@ -3,7 +3,7 @@ Problem: 3414. Maximum Score of Non-overlapping Intervals
 Difficulty: Hard
 Topic: Dynamic Programming, Binary Search, Sorting, Lexicographical Order
 
-Approach:
+Approach:     
 - Sort the intervals by their ending position.
 - Let order contain the original indices of the intervals in sorted order.
 - For each interval, use binary search to find the first interval whose
